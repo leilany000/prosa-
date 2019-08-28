@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>cadastre Registro</h2>
+
+<form action="registro/insert" method = "post">
+ Horário inicial:<br>
+  <input type="datatime" name="horario_inicial">
+  <br>
+
+ Horário final:<br>
+  <input type="datatime" name="horario_final">
+<br>
+ Vazão:<br>
+  <input type="number" name="vazao">
+ <br>
+  <button>Observe os dados.</button>
+</form>
+
+
+<h2>cadastre Projeto</h2>
+
+<form action="projeto/insert" method = "post">
+ Nome:<br>
+  <input type="text" name="nome">
+ <br>
+
+ Endereço:<br>
+  <input type="text" name="endereco">
+<br>
+ Descrição:<br>
+  <input type="text" name="descricao">
+ <br>
+  <button>Envie as informações.</button>
+</form>
+
+
+
+<h2>Adicione um ponto de medição:</h2>
+
+<form action="ponto_medicao/insert" method = "post">
+	
+ Descrição:<br>
+  <input type="text" name="descricao">
+ <br>
+
+  <button>Envie as informações.</button>
+</form>
+
+
+
+</body>
+</html>
