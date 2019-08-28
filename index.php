@@ -11,13 +11,17 @@ Flight::set('flight.handle_errors', false);
 /** rotenando a página principal **/
 Flight::route('/', function() {
     /** chamando a página principal */
-    include './view/page/home.php';
+    include './view/home.html';
+
+
 });
 
 /**
 *** Tipo de requisição: GET (mas poderia ser DELETE)
 *** apagando um registro na tabela de registros
 */
+
+
 Flight::route('GET /registro/delete/@id', function($id) {
     //abrindo conexão
     $db = new NotORM(PDOConfig::getInstance());    
@@ -51,13 +55,14 @@ Flight::route('GET /registro/delete/@id', function($id) {
 */
 Flight::route('POST /registro/insert', function() {
     //criando o objeto do banco de dados
-    $db = new NotORM(PDOConfig::getInstance());    
-    //inserindo o registro
+    $db = new NotORM(PDOConfig::getInstance());
+
     $db->registro->insert(
         array(
             "horario_inicial" => $_POST['horario_inicial'],
             "horario_final" => $_POST['horario_final'],
-            "vazao" => 1000
+            "vazao" => $_POST['vazao'],
+            "ponto_medicao_id" => 1,
         )
     );
     // escrendo um feedback
@@ -76,15 +81,171 @@ Flight::route('/registro/list', function() {
     //verificando se retornou dados
     if(count($data)){
 
-        $dados = array();
+        //$dados = array();
 
         //criando o cabeçalho JSON
         header('Content-Type: application/json');
         //retornando o resultado no formato JSON
-        echo json_encode($dados, JSON_PRETTY_PRINT);
+        echo json_encode($data, JSON_PRETTY_PRINT);
     }
     
 });
+
+
+
+
+
+/**
+*** Tipo de requisição: GET (mas poderia ser DELETE)
+*** apagando um registro na tabela de registros
+*/
+
+
+Flight::route('GET /projeto/delete/@id', function($id) {
+    //abrindo conexão
+    $db = new NotORM(PDOConfig::getInstance());    
+    //validando o ID
+    if(isset($id)){
+        //recuperando o registro no banco
+        //e trazendo um unico objeto
+        $projeto = $db->projeto->where("id = ?", $id)->fetch();
+        //verificando se foi retornado um objeto
+        if($projeto['id']){            
+            //enviando a solicitação de exclusão
+            $projeto->delete();
+        }else{
+            //retornando um feedback
+            echo "projeto não encontrado";
+        }
+            
+    }else{
+        //requisição inválida
+        echo "projeto não encontrado";
+    }
+    
+    //retornando um feedback
+    echo "projeto apagado";
+    
+});
+
+/**
+*** Tipo de requisição: POST
+*** inserindo um registro na tabela de projeto
+*/
+Flight::route('POST /projeto/insert', function() {
+    //criando o objeto do banco de dados
+    $db = new NotORM(PDOConfig::getInstance());
+
+    $db->projeto->insert(
+        array(
+            "nome" => $_POST['nome'],
+            "endereco" => $_POST['endereco'],
+            "descricao" => $_POST['descricao'],
+            //"ponto_medicao_id" => 1, /**
+        )
+    );
+    // escrendo um feedback
+    echo "projeto cadastrado com sucesso";
+});
+
+/**
+ *** Tipo de requisição: GET
+ *** Listando os registros em JSON
+ */
+Flight::route('/projeto/list', function() {
+    //abrindo conexao
+    $db = new NotORM(PDOConfig::getInstance());
+    //pegando os dados de todos dos projetos
+    $data = $db->projeto();
+    //verificando se retornou dados
+    if(count($data)){
+
+        //$dados = array();
+
+        //criando o cabeçalho JSON
+        header('Content-Type: application/json');
+        //retornando o resultado no formato JSON
+        echo json_encode($data, JSON_PRETTY_PRINT);
+    }
+    
+});
+
+
+
+
+/**
+*** Tipo de requisição: GET (mas poderia ser DELETE)
+*** apagando um registro na tabela de registros
+*/
+
+
+Flight::route('GET /ponto_medicao/delete/@id', function($id) {
+    //abrindo conexão
+    $db = new NotORM(PDOConfig::getInstance());    
+    //validando o ID
+    if(isset($id)){
+        //recuperando o registro no banco
+        //e trazendo um unico objeto
+        $ponto_medicao = $db->ponto_medicao->where("id = ?", $id)->fetch();
+        //verificando se foi retornado um objeto
+        if($ponto_medicao['id']){            
+            //enviando a solicitação de exclusão
+            $ponto_medicao->delete();
+        }else{
+            //retornando um feedback
+            echo "Ponto de medição não localizado.";
+        }
+            
+    }else{
+        //requisição inválida
+        echo "Ponto de medição não localizado.";
+    }
+    
+    //retornando um feedback
+    echo "Ponto de medição apagado";
+    
+});
+
+/**
+*** Tipo de requisição: POST
+*** inserindo um registro na tabela de ponto_medicao
+*/
+Flight::route('POST /ponto_medicao/insert', function() {
+    //criando o objeto do banco de dados
+    $db = new NotORM(PDOConfig::getInstance());
+
+    $db->ponto_medicao->insert(
+        array(
+            "descricao" => $_POST['descricao'],
+            "projeto_id" => 2,
+        )
+    );
+    // escrendo um feedback
+    echo "Ponto de mediçao cadastrado com sucesso";
+});
+
+/**
+ *** Tipo de requisição: GET
+ *** Listando os registros em JSON
+ */
+Flight::route('/ponto_medicao/list', function() {
+    //abrindo conexao
+    $db = new NotORM(PDOConfig::getInstance());
+    //pegando os dados de todos dos ponto_medicao
+    $data = $db->ponto_medicao();
+    //verificando se retornou dados
+    if(count($data)){
+
+        //$dados = array();
+
+        //criando o cabeçalho JSON
+        header('Content-Type: application/json');
+        //retornando o resultado no formato JSON
+        echo json_encode($data, JSON_PRETTY_PRINT);
+    }
+    
+});
+
 
 
 /**
@@ -100,7 +261,6 @@ Flight::map('error', function(Exception $ex) {
 
     include "./inc/page/error.php";
 });
-
 
 /*******************************
  * INICIALIZACAO DO FRAMEWORK
