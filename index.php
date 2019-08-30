@@ -62,6 +62,7 @@ Flight::route('POST /registro/insert', function() {
             "horario_inicial" => $_POST['horario_inicial'],
             "horario_final" => $_POST['horario_final'],
             "vazao" => $_POST['vazao'],
+            "volume" => $_POST['volume'],
             "ponto_medicao_id" => 1,
         )
     );
