@@ -67,6 +67,8 @@ CREATE TABLE `registro` (
   `id` bigint(20) NOT NULL,
   `horario_inicial` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `horario_final` timestamp NULL DEFAULT NULL,
+  `vazao` BIGINT NULL DEFAULT NULL,
+  `volume` BIGINT NULL DEFAULT NULL,
   `ponto_medicao_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
