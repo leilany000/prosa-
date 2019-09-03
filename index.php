@@ -34,6 +34,8 @@ Flight::route('GET /registro/delete/@id', function($id) {
         if($registro['id']){            
             //enviando a solicitação de exclusão
             $registro->delete();
+              //retornando um feedback
+         echo "Registro apagado";
         }else{
             //retornando um feedback
             echo "Registro não encontrado";
@@ -44,8 +46,7 @@ Flight::route('GET /registro/delete/@id', function($id) {
         echo "Registro não encontrado";
     }
     
-    //retornando um feedback
-    echo "Registro apagado";
+  
     
 });
 
@@ -74,13 +75,13 @@ Flight::route('POST /registro/insert', function() {
  *** Tipo de requisição: GET
  *** Listando os registros em JSON
  */
-Flight::route('/registro/list', function() {
+Flight::route('/registro/list(/@id_projeto)', function($id_projeto) {
     //abrindo conexao
     $db = new NotORM(PDOConfig::getInstance());
     //pegando os dados de todos dos registros
-    $data = $db->registro();
+   $data = !isset($id_projeto) ? $db->registro() : $db->registro->where("id_projeto = ?", $id_projeto);
     //verificando se retornou dados
-    if(count($data)){
+    if(count($data)){                                                                                                        
 
         //$dados = array();
 
@@ -98,7 +99,7 @@ Flight::route('/registro/list', function() {
 
 /**
 *** Tipo de requisição: GET (mas poderia ser DELETE)
-*** apagando um registro na tabela de registros
+*** apagando um registro na tabela de projeto
 */
 
 
@@ -114,6 +115,8 @@ Flight::route('GET /projeto/delete/@id', function($id) {
         if($projeto['id']){            
             //enviando a solicitação de exclusão
             $projeto->delete();
+        //retornando um feedback
+        echo "projeto apagado";
         }else{
             //retornando um feedback
             echo "projeto não encontrado";
@@ -124,8 +127,7 @@ Flight::route('GET /projeto/delete/@id', function($id) {
         echo "projeto não encontrado";
     }
     
-    //retornando um feedback
-    echo "projeto apagado";
+   
     
 });
 
@@ -176,7 +178,7 @@ Flight::route('/projeto/list', function() {
 
 /**
 *** Tipo de requisição: GET (mas poderia ser DELETE)
-*** apagando um registro na tabela de registros
+*** apagando um registro na tabela de ponto_medicao
 */
 
 
@@ -192,18 +194,12 @@ Flight::route('GET /ponto_medicao/delete/@id', function($id) {
         if($ponto_medicao['id']){            
             //enviando a solicitação de exclusão
             $ponto_medicao->delete();
+             //retornando um feedback
+        echo "Ponto de medição apagado";
         }else{
             //retornando um feedback
             echo "Ponto de medição não localizado.";
         }
-            
-    }else{
-        //requisição inválida
-        echo "Ponto de medição não localizado.";
-    }
-    
-    //retornando um feedback
-    echo "Ponto de medição apagado";
     
 });
 
@@ -229,11 +225,11 @@ Flight::route('POST /ponto_medicao/insert', function() {
  *** Tipo de requisição: GET
  *** Listando os registros em JSON
  */
-Flight::route('/ponto_medicao/list', function() {
+Flight::route('/ponto_medicao/list(/@id_projeto)', function($id_projeto) {
     //abrindo conexao
     $db = new NotORM(PDOConfig::getInstance());
     //pegando os dados de todos dos ponto_medicao
-    $data = $db->ponto_medicao();
+    $data = !isset($id_projeto) ? $db->ponto_medicao() : $db->ponto_medicao->where("id_projeto = ?", $id_projeto);
     //verificando se retornou dados
     if(count($data)){
 
