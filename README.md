@@ -32,7 +32,20 @@ A funcionalidade da a API do Prosa tem a possibilidade de fornecer informações
  * Pontos de Medição - um ponto de medição pode ser compreendido como um ponto específico, dentro de um espaço (Projeto), onde um medidor será instalado para realizar medições da água (instalado no banheiro, na caixa d'água, na sisterna, etc);
  * Registros - são os registros realizados a cada ciclo, que mensura vazão de água, volume e outras informações sobre a qualidade da água.
  
- 
+### :gear: Usando a API
+#### Listagem de usuários
+**Método:** GET
+```
+/prosa/api/user/list
+```
+**Retorno:** JSON
+```
+{
+ 'nome' : 'string',
+ 'login' : 'string',
+ 'data_cadastro' : 'datetime',
+}
+```
 
 ## <a id="contribuidores" href="#">:link:</a> Contribuidores
 
