@@ -63,7 +63,9 @@ A funcionalidade da a API do Prosa tem a possibilidade de fornecer informações
 **Retorno:** JSON 
 ```
 {
- 'descricao' : 'string',
+  'descricao' : 'string',
+  'projeto' : 'string',
+  'endereco' : 'string',
 }
 ```
 -----------------------------
@@ -81,6 +83,8 @@ A funcionalidade da a API do Prosa tem a possibilidade de fornecer informações
 Campo | Tipo | Limite
 ------------ | -------------| -------------
 descricao | string | 45
+projeto   |string  | 45
+endereco  | string | 45
 
 
 **Retorno:** Status
