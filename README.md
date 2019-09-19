@@ -33,12 +33,228 @@ A funcionalidade da a API do Prosa tem a possibilidade de fornecer informações
  * Registros - são os registros realizados a cada ciclo, que mensura vazão de água, volume e outras informações sobre a qualidade da água.
  
 ### :gear: Usando a API
-#### Listagem de usuários
+**ponto_medicao**
+
+--------------
+
+#### Apagar um ponto de medicão
+
 **Método:** GET
 ```
-/prosa/api/user/list
+/prosa/api/ponto_medicao/delete/{id}
+
 ```
 **Retorno:** JSON
+```
+{
+'status' : 'ok'
+ }
+```
+
+-----------------------------
+
+#### Listagem dos pontos de medição
+
+
+**Método:** GET
+```
+/prosa/api/ponto_medicao/list
+```
+**Retorno:** JSON 
+```
+{
+ 'descricao' : 'string',
+}
+```
+-----------------------------
+
+#### Inserir um ponto de medição
+
+**Método:** POST
+```
+/prosa/api/ponto_medicao/insert
+
+```
+**Campos:** 
+
+
+Campo | Tipo | Limite
+------------ | -------------| -------------
+descricao | string | 45
+
+
+**Retorno:** Status
+```
+{
+'status' : 'ok'
+ }
+```
+
+ ----------------------------
+
+
+ **Registro**
+
+--------------
+
+#### Apagar Registro
+
+**Método:** GET
+```
+/prosa/api/registro/delete/{id}
+
+```
+
+**Retorno:** JSON
+```
+{
+'status' : 'ok'
+ }
+```
+
+-----------------------------
+
+#### Listagem de Registro
+
+**Método:** GET
+```
+/prosa/api/registro/list
+
+```
+**Retorno:** JSON 
+```
+{
+ 'horario_inicial' : 'timestamp',
+ 'horario_final' : 'timestamp',
+ 'vazao' : 'bigint',
+ 'volume' : 'bigint',
+}
+```
+-----------------------------
+
+
+#### Inserir um Registro
+
+**Método:** POST
+```
+/prosa/api/registro/insert
+
+```
+**Campos:** 
+
+
+Campo | Tipo | Limite
+------------ | -------------| -------------
+horario_inicial | timestamp | -
+horario_final   |  timestamp| -
+vazao			| bigint	| 20
+volume			| bigint	| 20
+
+
+**Retorno:** Status
+```
+{
+'status' : 'ok'
+ }
+```
+
+ ----------------------------
+
+
+ **Projeto**
+
+--------------
+
+#### Apagar Projeto
+
+**Método:** GET
+```
+/prosa/api/projeto/delete/{id}
+
+```
+**Retorno:** JSON
+```
+{
+'status' : 'ok'
+ }
+
+```
+
+-----------------------------
+
+#### Listagem de Projeto
+
+**Método:** GET
+```
+/prosa/api/projeto/list
+```
+**Retorno:** JSON 
+```
+{
+ 'nome' : 'string',
+ 'endereco' : 'string',
+ 'descricao' : 'string',
+
+}
+```
+-----------------------------
+
+
+#### Inserir um Projeto
+
+**Método:** POST
+```
+/prosa/api/projeto/insert
+
+```
+**Campos:** 
+
+
+Campo | Tipo | Limite
+------------ | -------------| -------------
+nome | string | 30
+endereco   |  string    | 50
+descricao  |  string	| 50
+
+
+
+**Retorno:** Status
+```
+{
+'status' : 'ok'
+ }
+```
+
+ ----------------------------
+
+
+ **Usuários**
+
+--------------
+
+#### Apagar Usuário
+
+**Método:** GET
+```
+/prosa/api/usuario/delete/{id}
+
+```
+**Retorno:** JSON
+```
+{
+'status' : 'ok'
+ }
+```
+
+-----------------------------
+
+#### Listagem de Usuários
+
+**Método:** GET
+```
+/prosa/api/usuario/list
+```
+**Retorno:** JSON 
 ```
 {
  'nome' : 'string',
@@ -46,6 +262,36 @@ A funcionalidade da a API do Prosa tem a possibilidade de fornecer informações
  'data_cadastro' : 'datetime',
 }
 ```
+-----------------------------
+
+
+#### Inserir um Usuário
+
+**Método:** POST
+```
+/prosa/api/usuario/insert
+
+```
+**Campos:** 
+
+
+Campo | Tipo | Limite
+------------ | -------------| -------------
+nome | string | 30
+login   |  string | 50
+data_cadastro	| datetime	| -
+
+
+
+**Retorno:** Status
+```
+{
+'status' : 'ok'
+ }
+
+```
+ ----------------------------
+ 
 
 ## <a id="contribuidores" href="#">:link:</a> Contribuidores
 
